@@ -1,6 +1,6 @@
 // Package sqla provides some specific functions to extend standard Go database/sql package.
 // These functions can be used in any SQL-driven applications, although the pachage initially was created for the EDM project
-// [see https://github.com/alecxcode/edm for the most complete example of sqla usage].
+// [see https://github.com/alecxcode/edm for the most complete example of sqla usage]. Basic example code (how to use) can be found at: https://github.com/alecxcode/sqla
 //
 // This package is intended to provide more convenient methods for accessing SQL databases:
 // creating, updating, deleting and selecting objects.
