@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-// MakeParam takes database type (see constants) and parameter positional number to create ordial (or positional) placeholder parameter in your SQL statement.
-// E.g. for parameter #1 they are: $1 for SQLITE, @p1 for MSSQL, ? for MYSQL, :1 for ORACLE, $1 for POSTGRESQL.
+// MakeParam takes database type (see constants) and parameter positional number to create ordial (or positional) placeholder for a parameter in your SQL statement.
+// E.g. for the parameter #1 they are: $1 for SQLITE, @p1 for MSSQL, ? for MYSQL, :1 for ORACLE, $1 for POSTGRESQL. The function return only this placeholder.
 func MakeParam(DBType byte, argsCounter int) string {
 	switch DBType {
 	case SQLITE:
@@ -76,7 +76,7 @@ func BuildSQLINNOT(DBType byte, sq string, argsCounter int, column string, value
 }
 
 // BuildSQLINOR makes and adds a part of SQL statement with all numbered placeholders for arguments supplied in a valueList.
-// sq argument should be complete SQL statement, as BuildSQLINNOT returns augmented statement, not part of it. argsCounter is required to define from what number to start count positional parameters.
+// sq argument should be complete SQL statement, as BuildSQLINOR returns augmented statement, not part of it. argsCounter is required to define from what number to start count positional parameters.
 // The added part of a statement will look something like 'WHERE/AND (column IN($1, $2) OR another_column IN($1, $2), etc...)'.
 // Although the 'WHERE/AND (' part will be added only when FirstIter argument is true and the closing ')' will be added only when LastIter argument is true.
 // BuildSQLINOR returns counter as the number of added parameters for use in other routine, statement, and args as []interface{} of payload arguments which may be supplied to Go sql functions.

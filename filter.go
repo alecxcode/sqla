@@ -59,7 +59,7 @@ type SumFilter struct {
 }
 
 // GetFilterFromJSON unmarshals JSON to Filter struct and then only converts dates and sums from strings to integer representation.
-// dateConvFunc and dateTimeConvFunc - are used to convert string-typed dates to int64-datestamps or int64-timestamps. These may be the same - it ia a developer's choice.
+// dateConvFunc and dateTimeConvFunc - are used to convert string-typed dates to int64-datestamps or int64-timestamps. These may be the same - it is a developer's choice.
 func (f *Filter) GetFilterFromJSON(JSON []byte,
 	dateConvFunc func(string) int64,
 	dateTimeConvFunc func(string) int64) {
@@ -95,7 +95,7 @@ func (f *Filter) GetFilterFromJSON(JSON []byte,
 // Any filters with empty lists will be removed from Filter.
 // Before executing this method some initial values should be set: filter names and table's columns.
 //
-// Developer is required to provide dateConvFunc and dateTimeConvFunc. They used to convert string-typed dates from a form to int64-datestamps or int64-timestamps. These may be the same - it ia a developer's choice.
+// Developer is required to provide dateConvFunc and dateTimeConvFunc. They used to convert string-typed dates from a form to int64-datestamps or int64-timestamps. These may be the same - it is a developer's choice.
 // keywords allow to replace some string from related HTML form with integer value for any ClassFilter.
 func (f *Filter) GetFilterFromForm(r *http.Request,
 	dateConvFunc func(string) int64,
