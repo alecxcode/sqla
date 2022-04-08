@@ -1,6 +1,6 @@
 # sqla Go (Golang) package
 
-Package **sqla** provides some specific functions to extend standard Go database/sql package. These functions can be used in any SQL-driven applications, although the pachage initially was created for the EDM project [see https://github.com/alecxcode/edm for the most complete example of sqla usage]. Basic example code (how to use) can be found below.
+Package **sqla** provides some specific functions to extend standard Go database/sql package. These functions can be used in any SQL-driven applications, although the package initially was created for the EDM project [see https://github.com/alecxcode/edm for the most complete example of sqla usage]. Basic example code (how to use) can be found below.
 
 Complete documentation available at: https://pkg.go.dev/github.com/alecxcode/sqla
 

@@ -99,7 +99,7 @@ func UpdateMultipleWithOneInt(db *sql.DB, DBType byte, table string, column stri
 	return rowsaff
 }
 
-// SetToNull set to NULL the column of any object which has a value from a list in that column.
+// SetToNull sets to NULL the column of any object which has a value from a list in that column.
 func SetToNull(db *sql.DB, DBType byte, table string, column string, list []int) (rowsaff int) {
 
 	var sq = "UPDATE " + table + " SET " + column + " = NULL "
