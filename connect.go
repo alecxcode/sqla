@@ -111,7 +111,7 @@ func OpenSQLConnection(DBType byte, DSN string) (db *sql.DB) {
 	case ORACLE:
 		sqldriver = "oracle"
 	case POSTGRESQL:
-		sqldriver = "postgres"
+		sqldriver = "pgx"
 	}
 	db, err = sql.Open(sqldriver, DSN)
 	if err != nil {

@@ -27,3 +27,6 @@ require (
 
 // Accidentally removed License file
 retract v0.1.0
+
+// Accidentally broken PostgreSQL driver
+retract v0.1.4
