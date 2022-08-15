@@ -10,10 +10,10 @@ import (
 	//names of drivers omitted
 	_ "github.com/denisenkom/go-mssqldb"
 	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/lib/pq"
+	_ "github.com/jackc/pgx/v4/stdlib"
 	_ "github.com/mattn/go-sqlite3"
 	_ "github.com/sijms/go-ora/v2"
-	//_ "github.com/jackc/pgx/v4/stdlib" // pq driver may be replaced with this if necessary
+	//_ "github.com/lib/pq"
 )
 
 // SQLITE, MSSQL, MYSQL, ORACLE POSTGRESQL - are database types supported.
@@ -82,61 +82,15 @@ func BuildDSN(DBType string, DBName string, DBHost string, DBPort string, DBUser
 func CreateDB(DBType byte, DSN string, sqlStmt string) {
 
 	var err error
-
 	db := OpenSQLConnection(DBType, DSN)
 	defer db.Close()
 
-	if DBType == SQLITE {
-		_, err = db.Exec(sqlStmt)
+	sqlStmtArr := strings.Split(sqlStmt, ";")
+	for i := 0; i < len(sqlStmtArr)-1; i++ {
+		_, err = db.Exec(strings.Trim(sqlStmtArr[i], "\r\n\t ;"))
 		if err != nil {
-			log.Printf("%q: %s\n", err, "while creating tables")
-			//return
-		}
-	}
-
-	if DBType == MSSQL {
-		_, err = db.Exec(sqlStmt)
-		if err != nil {
-			log.Printf("%q: %s\n", err, "while creating tables")
-			//return
-		}
-	}
-
-	if DBType == MYSQL {
-		sqlStmtArr := strings.Split(sqlStmt, ";")
-		for i := 0; i < len(sqlStmtArr)-1; i++ {
-			// if DEBUG {
-			// 	log.Println(strings.Trim(sqlStmtArr[i], "\r\n\t ;"))
-			// }
-			_, err = db.Exec(strings.Trim(sqlStmtArr[i], "\r\n\t ;"))
-			if err != nil {
-				log.Println(strings.Trim(sqlStmtArr[i], "\r\n\t ;"))
-				log.Printf("%q: %s%d\n", err, "while creating tables at:", i)
-				//return
-			}
-		}
-	}
-
-	if DBType == ORACLE {
-		sqlStmtArr := strings.Split(sqlStmt, ";")
-		for i := 0; i < len(sqlStmtArr)-1; i++ {
-			// if DEBUG {
-			// 	log.Println(strings.Trim(sqlStmtArr[i], "\r\n\t ;"))
-			// }
-			_, err = db.Exec(strings.Trim(sqlStmtArr[i], "\r\n\t ;"))
-			if err != nil {
-				log.Println(strings.Trim(sqlStmtArr[i], "\r\n\t ;"))
-				log.Printf("%q: %s%d\n", err, "while creating tables at:", i)
-				//return
-			}
-		}
-	}
-
-	if DBType == POSTGRESQL {
-		_, err = db.Exec(sqlStmt)
-		if err != nil {
-			log.Printf("%q: %s\n", err, "while creating tables")
-			//return
+			log.Println(strings.Trim(sqlStmtArr[i], "\r\n\t ;"))
+			log.Printf("%q: %s%d\n", err, "while creating tables at:", i)
 		}
 	}
 
