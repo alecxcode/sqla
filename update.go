@@ -127,6 +127,24 @@ func SetToNull(db *sql.DB, DBType byte, table string, column string, list []int)
 	return rowsaff
 }
 
+// SetToNullOneByID sets to NULL the column of an object which has a specified ID.
+func SetToNullOneByID(db *sql.DB, dbType byte, table string, column string, id int) (rowsaff int) {
+	var sq = "UPDATE " + table + " SET " + column + " = NULL WHERE ID = " + MakeParam(dbType, 1)
+	if DEBUG {
+		log.Println(sq, id)
+	}
+	res, err := db.Exec(sq, id)
+	if err != nil {
+		log.Println(currentFunction()+":", err)
+	}
+	ra, err := res.RowsAffected()
+	if err != nil {
+		log.Println(currentFunction()+":", err)
+	}
+	rowsaff = int(ra)
+	return rowsaff
+}
+
 // UpdateSingleInt creates an SQL statement and executes it to update only one value of an object in database.
 // It executes UpdateObject.
 func UpdateSingleInt(db *sql.DB, DBType byte, table string, column string, valueToSet int, ID int) (rowsaff int) {
